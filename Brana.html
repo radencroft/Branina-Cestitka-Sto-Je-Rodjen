@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Branin Poklon I.O.U.</title>
+  <style>
+    body { font-family: Arial; text-align: center; margin-top: 50px; }
+    .btn { padding: 10px 20px; margin: 10px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <h1>Kviz</h1>
+  <p id="question">Ovde ce se pojaviti pitanja, dopuni recenicu!</p>
+
+  <div id="answers"></div>
+
+  <p id="result"></p>
+
+  <script>
+    const quiz = [
+      {
+        question: "Ako ga bud'mo t'ko jeb'li rascvetace mu s' shupak, a to boli. El ti to znas? El znas? Ne znas!",
+        answers: ["Ja sam jeo grasak!", "Ja to jako dobro znam", "A sad Frodo dones' kondom"],
+        correct: 1
+      },
+      {
+        question: "Djesi Seto! Hajde bujrum, ti si moj musterija, imam dobre karte za tebe, al' vidim ti na ocima da imas dobre vut",
+        answers: ["Imam o'de Sibirski Plavac! On te dere mamushka se strushka, babushka!", "Ne daj se Djedo! Nedaj se, ne daj!", "E moj DjeTe POjma ti O Zivotu Nemas.."],
+        correct: 2
+      },
+      {
+        question: "Opet si zapao u neke nevolje! Opet se drogiras. Koliko ti treba?",
+        answers: ["Ura! Ura! Ura!", "100.000.000 Maraka", "A to je zato sto sam o'ako mali i gadan.."],
+        correct: 1
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    function showQuestion() {
+      const q = quiz[currentQuestion];
+      document.getElementById("question").innerText = q.question;
+
+      const answersDiv = document.getElementById("answers");
+      answersDiv.innerHTML = "";
+
+      q.answers.forEach((answer, index) => {
+        const button = document.createElement("button");
+        button.innerText = answer;
+        button.className = "btn";
+        button.onclick = () => checkAnswer(index);
+        answersDiv.appendChild(button);
+      });
+    }
+
+    function checkAnswer(index) {
+      if (index === quiz[currentQuestion].correct) {
+        score++;
+      }
+
+      currentQuestion++;
+
+      if (currentQuestion < quiz.length) {
+        showQuestion();
+      } else {
+        document.getElementById("question").innerText = "We're sorry! Based on your score, The Agency has deducted that your present will arrive during the week! Stay tuned!";
+        document.getElementById("answers").innerHTML = "";
+        document.getElementById("result").innerText = "Your score: " + score;
+      }
+    }
+
+    showQuestion();
+  </script>
+
+</body>
+</html>
